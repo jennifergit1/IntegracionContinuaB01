@@ -1,12 +1,21 @@
 <?php
-class conexionMySQL{
-    public static function Db() {
+class conexionMySQL
+{
+    private $conn;
+    public function open()
+    {
         // Create connection
-        $conn = mysqli_connect("DBGrupo29:3306", "root", "123", "integracionContinua");
+        $this->conn = mysqli_connect("DBGrupo29:3306", "root", "123", "integracionContinua");
         // Check connection
-        if (!$conn) {
+        if (!$this->conn) {
             die("Connection failed: " . mysqli_connect_error());
         }
-        return $conn;
+        return $this->conn;
+    }
+    public function close()
+    {
+        if ($this->conn) {
+            mysqli_close($this->conn);
+        }
     }
 }
