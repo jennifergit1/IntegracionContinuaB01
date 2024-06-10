@@ -32,6 +32,17 @@
 <!-- Bootstrap 4 -->
 <script src="../../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
 <!-- AdminLTE App -->
-<script src="../../dist/js/adminlte.js"></script>}
+<script src="../../dist/js/adminlte.js"></script>
+<!-- DataTable -->
+<script src="../../plugins/datatables/jquery.dataTables.js"></script>
+<!-- DataTable BS4 -->
+<script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
+<?php 
+if($javascript) :
+  foreach ($javascript as $key => $value) :
+    echo($value);
+  endforeach; 
+endif;
+?>
 </body>
 </html>
