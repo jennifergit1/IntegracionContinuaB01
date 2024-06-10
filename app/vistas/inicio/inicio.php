@@ -4,7 +4,6 @@ require_once("../../modelos/mensajesModelo/mensajes.php");
 require_once("../header/header.php");
 $mensajesModelo = new mensajes();
 $mensajesLista = $mensajesModelo->getMensajes();
-echo (var_dump($mensajesLista));
 ?>
 <div class="col-md-12">
 <table class="table">
