@@ -13,6 +13,8 @@
   <link rel="stylesheet" href="../../dist/css/adminlte.min.css">
   <!-- DataTable BS4 -->
    <link rel="stylesheet" href="../../plugins/datatables-bs4/css/dataTables.bootstrap4.css">
+  <!-- SweetAlert2 -->
+   <link rel="stylesheet" href="../../plugins/sweetalert2/sweetalert2.css"
   <?php 
   if($style) :
     foreach ($style as $key => $value) :
