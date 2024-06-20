@@ -15,29 +15,33 @@ $(document).ready(function () {
         }
         $.post('../../controladores/usuariosControlador.php', { accion: 'iniciar_sesion', usuario: usuario }).done(function (res) {
             let data = JSON.parse(res);
-            let swal = {
-                text: "",
-                icon: "",
-                title: ""
-            };
             if (data.status == "ok") {
+                $("#login-box").hide();
                 if (data.mensaje == 0) {
                     Swal.fire({
                         title: "Error",
                         text: "Usuario o contraseña incorrecto",
                         icon: "error"
+                    }).then(() => {
+                        $("#login-box").show(1000);
                     });
                 } else {
+                    $("#login-box").hide();
                     Swal.fire({
                         title: "Éxito",
-                        text: "Iniciando sesión",
-                        icon: "success"
+                        icon: "success",
+                        html: "Iniciando sesión...",
+                        timer: 1500,
+                        timerProgressBar: true,
+                        didOpen: () => {
+                            Swal.showLoading();
+                        }
                     }).then((result) => {
-                        /* Read more about isConfirmed, isDenied below */
-                        if (result.isConfirmed) {
+                        if (result.dismiss === Swal.DismissReason.timer) {
                             window.location.href = "../../index.php"
                         }
                     });
+
                 }
             }
 
