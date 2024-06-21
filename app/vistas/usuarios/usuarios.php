@@ -1,4 +1,8 @@
 <?php
+session_start();
+if (!isset($_SESSION["correo"])) {
+    header("Location: ../login/login.php");
+}
 require_once("../../modelos/conexionMySQL.php");
 require_once("../header/header.php");
 ?>

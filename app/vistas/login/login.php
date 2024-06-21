@@ -17,8 +17,8 @@
   <link rel="stylesheet" href="../../plugins/sweetalert2/sweetalert2.css">
 </head>
 
-<body class="hold-transition login-page">
-  <div class="login-box">
+<body class="hold-transition login-page" id="body">
+  <div class="login-box" id="login-box">
     <div class="login-logo">
       <a href="../../index.html"><b>Barber </b>AgendApp</a>
     </div>
