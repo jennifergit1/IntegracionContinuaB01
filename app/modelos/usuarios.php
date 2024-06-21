@@ -46,12 +46,14 @@ class usuarios
         try {
             $conexionMySQL = new conexionMySQL();
             $conn = $conexionMySQL->open();
-            $sql = "SELECT correo, clave FROM usuarios WHERE correo = '" . $usuario["correo"] . "' AND clave=MD5('" . $usuario["clave"] . "')";
+            $sql = "SELECT id, correo, clave, nombres, activo, admin FROM usuarios WHERE correo = '" . $usuario["correo"] . "' AND clave=MD5('" . $usuario["clave"] . "') LIMIT 1";
             $resultado = $conn->query($sql)->fetch_all(MYSQLI_ASSOC);
             $conn = $conexionMySQL->close();
             $count = count($resultado);
+            $resultado["clave"] = null;
             return array(
-                "mensaje"   => ($count > 0) ? 1 : 0, 
+                "usuario"   => $resultado[0],
+                "mensaje"   => ($count > 0) ? 1 : 0,
                 "status"    => "ok",
                 "message"   => "rows found: " . $count
             );
