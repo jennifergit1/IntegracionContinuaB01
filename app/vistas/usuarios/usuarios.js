@@ -21,4 +21,51 @@ $(document).ready(function(){
             }
         },
     });
+    
+    $(".btnModalEditarUsuario").click(function () {
+        limpiarModalEditar();
+        let usuario = JSON.parse($(this).attr("usuarioInfo"));
+        console.log(usuario);
+        $("#idE").val(usuario.id);
+        $("#correoE").val(usuario.correo);
+        $("#nombresE").val(usuario.nombres);
+        $("#activoE").val(usuario.activo);
+        $("#adminE").val(usuario.admin);
+        $("#modalEditarUsuarioLabel").text("Editar usuario - Id: " + usuario.id);
+    });
+
+    $("#btnEditarUsuario").on("click", function () {
+        let usuario = {
+            id: $("#idE").val(),
+            nombres: $("#nombresE").val(),
+            activo: $("#activoE").val(),
+            admin: $("#adminE").val(),
+        };
+        $.post('../../controladores/usuariosControlador.php', { accion: 'editar_usuario', usuario: usuario }).done(function (res) {
+            let data = JSON.parse(res);
+            if (data.status == "ok") {
+                Swal.fire({
+                    title: "Éxito",
+                    icon: "success",
+                    text: data.mensaje,
+                }).then(() => {
+                        window.location.reload();
+                });
+            } else {
+                Swal.fire({
+                    title: "Error",
+                    text: data.mensaje,
+                    icon: "error"
+                }).then(() => {
+                    console.log(data.message);
+                });
+            }
+        });
+    });
 });
+
+function limpiarModalEditar() {
+    $("#idE").val("");
+    $("#correoE").val("");
+    $("#nombresE").val("");
+}
