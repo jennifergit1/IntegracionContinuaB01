@@ -39,6 +39,8 @@
 <script src="../../plugins/datatables-bs4/js/dataTables.bootstrap4.js"></script>
 <!-- SweetAlert2 -->
  <script src="../../plugins/sweetalert2/sweetalert2.all.js"></script>
+<!-- SweetAlert2 -->
+ <script src="../../dist/js/funciones.js"></script>
 <?php 
 if($javascript) :
   foreach ($javascript as $key => $value) :

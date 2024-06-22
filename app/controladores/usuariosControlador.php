@@ -9,6 +9,11 @@ if (isset($_POST["accion"])) {
             $resultado = $usuariosModelo->crearUsuario($usuario);
             echo (json_encode($resultado, JSON_UNESCAPED_UNICODE));
             break;
+        case 'editar_usuario':
+            $usuario = $_POST["usuario"];
+            $resultado = $usuariosModelo->editarUsuario($usuario);
+            echo (json_encode($resultado, JSON_UNESCAPED_UNICODE));
+            break;
         case "iniciar_sesion":
             $usuario = $_POST["usuario"];
             $resultado = $usuariosModelo->validarUsuario($usuario);
@@ -25,6 +30,19 @@ if (isset($_POST["accion"])) {
                 }
             }
             echo (json_encode($resultado, JSON_UNESCAPED_UNICODE));
+            break;
+        case 'editar_mi_informacion':
+            $usuario = $_POST["usuario"];
+            if (strlen($usuario["clave"]) > 0) {
+                $resultado = $usuariosModelo->editarMiPerfilConClave($usuario);
+            } else {
+                $resultado = $usuariosModelo->editarMiPerfil($usuario);
+            }
+            echo (json_encode($resultado, JSON_UNESCAPED_UNICODE));
+            break;
+        case 'actualizar_sesion':
+            session_start();
+            $_SESSION["nombres"]=$_POST["nombres"];
             break;
         default:
             $resultado = array(

@@ -25,13 +25,61 @@
   ?>
 </head>
 
+
+<div class="modal fade" id="modalMiInfo" tabindex="-1" aria-labelledby="modalMiInfoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="modalMiInfoLabel">Editar usuario</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form id="formEditarUsuario">
+        <div class="modal-body">
+          <input type="hidden" value="<?php echo ($_SESSION["id"]); ?>" name="idMiInfo" id="idMiInfo">
+          <div class="container">
+            <div class="form-row">
+              <div class="col-md-12 mb-3">
+                <p><strong>Correo electrónico</strong></p>
+                <p><?php echo ($_SESSION["correo"]); ?></p>
+              </div>
+              <div class="col-md-12 mb-3">
+                <label for="nombresMiInfo">Nombres</label>
+                <input type="text" class="form-control" id="nombresMiInfo" name="nombresMiInfo" required value="<?php echo ($_SESSION["nombres"]); ?>">
+              </div>
+              <div class="col-md-12 mb-3">
+                <label for="claveMiInfo">Cambiar contraseña</label>
+                <input type="password" class="form-control" id="claveMiInfo" name="claveMiInfo" required>
+                <small>Si no deseas cambiar tu contraseña deja este campo en blanco.</small>
+              </div>
+              <div class="col-md-12 mb-3">
+                <label for="confirmarClaveMiInfo">Confirmar contraseña</label>
+                <input type="password" class="form-control" id="confirmarClaveMiInfo" name="confirmarClaveMiInfo" required>
+              </div>
+              <div class="col-md-12 mb-3">
+                <p><strong>Rol</strong></p>
+                <p><?php echo (($_SESSION["admin"] == 1) ? "Administrador" : "Cliente"); ?></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+          <button type="button" class="btn btn-primary" id="btnEditarMiInfo" name="btnEditarMiInfo">Editar mi información</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 <body class="hold-transition sidebar-mini layout-fixed">
   <div class="wrapper">
 
     <!-- Preloader -->
-    <!-- <div class="preloader flex-column justify-content-center align-items-center">
-    <img class="animation__shake" src="../../dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
-  </div> -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+      <img class="animation__shake" src="../../dist/img/icono_peluqueria.png" alt="AdminLTELogo" height="60" width="60">
+    </div>
 
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -43,9 +91,9 @@
         <li class="nav-item d-none d-sm-inline-block">
           <a href="../../index.php" class="nav-link">Inicio</a>
         </li>
-        <li class="nav-item d-none d-sm-inline-block">
+        <!-- <li class="nav-item d-none d-sm-inline-block">
           <a href="#" class="nav-link">Contacto</a>
-        </li>
+        </li> -->
       </ul>
 
       <!-- Right navbar links -->
@@ -56,6 +104,11 @@
             <i class="fas fa-user-cog"></i>
           </a>
           <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+            <div class="dropdown-divider"></div>
+            <a href="#" class="dropdown-item" data-toggle="modal" data-target="#modalMiInfo">
+              <i class="fas fa-sign-out-alt"></i> Mi información
+              <span class="float-right text-muted text-sm"></span>
+            </a>
             <div class="dropdown-divider"></div>
             <a href="../login/logout.php" class="dropdown-item">
               <i class="fas fa-sign-out-alt"></i> Cerrar sesión
@@ -70,7 +123,7 @@
     <!-- Main Sidebar Container -->
     <aside class="main-sidebar sidebar-dark-primary elevation-4 bg-primary">
       <!-- Brand Logo -->
-      <a href="index3.html" class="brand-link">
+      <a href="../../index.php" class="brand-link">
         <img src="../../dist/img/icono_barber.png" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
         <span class="brand-text font-weight-light">Barber Agend<strong>App</strong></span>
       </a>
@@ -79,57 +132,59 @@
       <div class="sidebar">
         <!-- Sidebar user panel (optional) -->
         <div class="user-panel mt-3 pb-3 mb-3 d-flex">
-          <!-- <div class="image">
-            <img src="../../dist/img/icono_barber.png" class="img-circle elevation-2" alt="User Image">
-          </div> -->
+          <div class="image">
+            <img src="../../dist/img/icono_peluqueria.png" class="img-circle" alt="User Image">
+          </div>
           <div class="info">
-            <a href="#" class="d-block"><?php echo ($_SESSION["nombres"]); ?></a>
+            <a href="#" class="d-block" data-toggle="modal" data-target="#modalMiInfo"><?php echo ($_SESSION["nombres"]); ?></a>
           </div>
         </div>
 
         <!-- Sidebar Menu -->
         <nav class="mt-2">
-          <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-            <li class="nav-item">
-              <a href="#" class="nav-link">
-                <i class="fas fa-circle nav-icon"></i>
-                <p>Mi información</p>
-              </a>
-            </li>
-            <?php
-            if ($_SESSION["admin"] == 1) :
-            ?>
+          <?php if (isset($_SESSION["correo"])) : ?>
+            <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
               <li class="nav-item">
-                <a href="../usuarios/usuarios.php" class="nav-link">
+                <a href="#" class="nav-link" data-toggle="modal" data-target="#modalMiInfo">
                   <i class="fas fa-circle nav-icon"></i>
-                  <p>Gestionar usuarios</p>
+                  <p>Mi información</p>
                 </a>
               </li>
+              <?php
+              if ($_SESSION["admin"] == 1) :
+              ?>
+                <li class="nav-item">
+                  <a href="../usuarios/usuarios.php" class="nav-link">
+                    <i class="fas fa-circle nav-icon"></i>
+                    <p>Gestionar usuarios</p>
+                  </a>
+                </li>
+                <li class="nav-item">
+                  <a href="../citasAdmin/citasAdmin.php" class="nav-link">
+                    <i class="fas fa-circle nav-icon"></i>
+                    <p>Gestionar citas</p>
+                  </a>
+                </li>
+              <?php
+              elseif ($_SESSION["admin"] == 0) :
+              ?>
+                <li class="nav-item">
+                  <a href="../citas/citas.php" class="nav-link">
+                    <i class="fas fa-circle nav-icon"></i>
+                    <p>Gestionar mis citas</p>
+                  </a>
+                </li>
+              <?php
+              endif;
+              ?>
               <li class="nav-item">
-                <a href="../citasAdmin/citasAdmin.php" class="nav-link">
+                <a href="../login/logout.php" class="nav-link">
                   <i class="fas fa-circle nav-icon"></i>
-                  <p>Gestionar citas</p>
+                  <p>Cerrar sesión</p>
                 </a>
               </li>
-            <?php
-            elseif ($_SESSION["admin"] == 0) :
-            ?>
-              <li class="nav-item">
-                <a href="../citas/citas.php" class="nav-link">
-                  <i class="fas fa-circle nav-icon"></i>
-                  <p>Gestionar mis citas</p>
-                </a>
-              </li>
-            <?php
-            endif;
-            ?>
-            <li class="nav-item">
-              <a href="../login/logout.php" class="nav-link">
-                <i class="fas fa-circle nav-icon"></i>
-                <p>Cerrar sesión</p>
-              </a>
-            </li>
-          </ul>
+            </ul>
+          <?php endif; ?>
         </nav>
         <!-- /.sidebar-menu -->
       </div>
@@ -151,7 +206,7 @@
       <!-- /.content-header -->
 
       <!-- Main content -->
-      <section class="content">
+      <section class="content pb-4">
         <div class="container-fluid">
           <!-- Small boxes (Stat box) -->
           <div class="row">
