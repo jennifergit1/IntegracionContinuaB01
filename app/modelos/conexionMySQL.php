@@ -5,7 +5,7 @@ class conexionMySQL
     public function open()
     {
         // Create connection
-        $this->conn = mysqli_connect("DBGrupo29:3306", "root", "123", "integracionContinua");
+        $this->conn = mysqli_connect("mysql-g29:3306", "root", "123", "integracionContinua");
         // Check connection
         $this->conn->set_charset("utf8");
         if (!$this->conn) {
