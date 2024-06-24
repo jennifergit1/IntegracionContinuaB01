@@ -1,12 +1,6 @@
 FROM mysql:5.7
 
 ENV MYSQL_ROOT_PASSWORD=123
-ENV MYSQL_DATABASE=integracionContinua
 
 EXPOSE 3306
-
-# Copia el archivo SQL al contenedor y ejecuta el script de inicialización
-COPY ./integracionContinua/backup.sql /docker-entrypoint-initdb.d/
-
-CMD ["mysqld"]
 
