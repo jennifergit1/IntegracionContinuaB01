@@ -2,7 +2,7 @@ FROM mysql:5.7
 
 ENV MYSQL_ROOT_PASSWORD=123
 
-COPY dataBase /var/lib/dataBase
+COPY . /var/lib/dataBase
 
 EXPOSE 3306
 
